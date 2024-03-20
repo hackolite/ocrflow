@@ -1,0 +1,1 @@
+json_template = {"text":None, "boxes":[], "shape":(None,None), "position":(None,None,None,None)}

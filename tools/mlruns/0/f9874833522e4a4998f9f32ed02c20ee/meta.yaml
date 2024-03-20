@@ -1,0 +1,15 @@
+artifact_uri: file:///home/lamaaz/xretail_plateform/ocrflow/tools/mlruns/0/f9874833522e4a4998f9f32ed02c20ee/artifacts
+end_time: 1710162070366
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f9874833522e4a4998f9f32ed02c20ee
+run_name: ./output
+run_uuid: f9874833522e4a4998f9f32ed02c20ee
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1710162065965
+status: 3
+tags: []
+user_id: lamaaz
