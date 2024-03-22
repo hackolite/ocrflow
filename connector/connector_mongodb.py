@@ -10,13 +10,13 @@ from datetime import datetime
 import pytz
 from datetime import datetime
 import random
-
+from datetime import datetime
 
 
 
 class MongoConnector:
 
-    def __init__(self, user="xretail", password="kodjemana", host="cluster0.nn3l2bm.mongodb.net"):
+    def __init__(self, user=None, password=None, host=None):
         #self.connection = 
         uri = "mongodb+srv://{}:{}@{}/".format(user, password, host)
         # Create a new client and connect to the server
@@ -32,7 +32,8 @@ class MongoConnector:
 
     def store_mongodb(self, ean=None, description=None, price=None, gtin=False, store_id=None, session=None, user=None, url_image=None, annotation=None, queue=None):
         utc_now = datetime.utcnow().replace(tzinfo=pytz.utc)
-        document= {"ean" : ean, "description": "DEMO", "price": price, "time": utc_now, 
+        #creation_date = datetime(2024, 3, 4, 12, 0, 0, 0, tzinfo=pytz.utc)
+        document= {"ean" : ean, "description": description, "price": price, "insertion_date": utc_now, "time": utc_now, 
                     "valid":gtin, "user":user, "session":session, "project_id":session, "store_id":store_id, "url_image":url_image, "annotation":annotation, "queue":queue}
         # Insert the data into the collection
         result = self.collection.insert_one(document)

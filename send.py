@@ -3,17 +3,14 @@ import smtplib
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 
-#subject = "XRETAIL JOBS"
-#body = "LE JOB  A ETE ENVOYEE"
-#password = ""
-#sender_email = 'laureote-loic@hotmail.fr'
-# Adresse e-mail du destinataire
-#recipient_email = 'loic.laureote@gmail.com'
-
-
-def mail(recipient_email, sender_email, password, body):
+def mail(recipient_email, sender_email, password, body, fichier_piece_jointe):
 
     # Paramètres du serveur SMTP Gmail
     smtp_server = 'smtp-mail.outlook.com'
@@ -26,6 +23,14 @@ def mail(recipient_email, sender_email, password, body):
     msg['From'] = sender_email
     msg['To'] = recipient_email
     msg['Subject'] = 'XRETAIL'
+
+    # Attacher le fichier
+    with open(fichier_piece_jointe, 'rb') as piece_jointe:
+        mime_part = MIMEBase('application', 'octet-stream')
+        mime_part.set_payload(piece_jointe.read())
+        encoders.encode_base64(mime_part)
+        mime_part.add_header('Content-Disposition', f'attachment; filename={fichier_piece_jointe}')
+        msg.attach(mime_part)
 
     msg.attach(MIMEText(body, 'plain'))
     # Connexion au serveur SMTP

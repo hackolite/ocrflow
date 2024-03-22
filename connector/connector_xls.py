@@ -9,6 +9,10 @@ import cv2
 import numpy as np
 import xlsxwriter 
 import os
+from configuration import *
+
+
+
 
 
 class XlsConnector:
@@ -61,8 +65,7 @@ class XlsConnector:
 
 
     def process(self, queue=None):
-        mongoconnector  = MongoConnector()
-        #xlsconnector    = XlsConnector()
+        mongoconnector = MongoConnector(user=mongodb_credentials["user"] , password=mongodb_credentials["password"], host=mongodb_credentials["host"])
         self.queue = queue
         resultats = mongoconnector.get_queue_session(queue=queue)
         for index, i in enumerate(resultats):

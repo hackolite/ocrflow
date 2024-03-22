@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mlflow:
+    image: mlflow/mlflow:latest
+    ports:
+      - "7000:7000"
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow.db
+      - MLFLOW_ARTIFACT_ROOT=file:///path/to/artifacts
+      - MLFLOW_MODEL_REGISTRY_URI=file:///path/to/models
+    volumes:
+      - ./artifacts:/mlflow/artifacts
+      - ./models:/mlflow/models
+      - ./mlflow/db:/mlflow/db

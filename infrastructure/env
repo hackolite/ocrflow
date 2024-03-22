@@ -1,0 +1,26 @@
+MODEL_FOLDER           =  /home/lamaaz/xretail_plateform/ocrflow/models
+FTP_FOLDER             =  /home/ubuntu/xretail_plateform/xretail_front/app/forms/uploads
+API_HOST               =  host
+
+FTP_HOST               =  host
+FTP_USER               =  user
+FTP_PASSWORD           =  password
+
+
+CLOUDINARY_NAME        =  dinsxzuha
+CLOUDINARY_KEY         =  774633754529138
+CLOUDINARY_SECRET      =  secret
+
+
+RABBITMQ_HOST          =  cluster0.nn3l2bm.mongodb.net
+RABBITMQ_USER          =  xretail
+RABBITMQ_PASSWORD      =  password
+
+
+MONGODB_HOST           =  host
+MONGODB_USER           =  user
+MONGODB_PASSWORD       =  password
+
+
+OPENFOODFACT_USER      = user
+OPENFOODFACT_PASSWORD  = password

@@ -13,22 +13,27 @@ import smtplib
 from email.mime.text import MIMEText
 from send import mail
 import traceback
+from configuration import *
 
-mongo = MongoConnector()
+
+
+mongo = MongoConnector(user=mongodb_credentials["user"] , password=mongodb_credentials["password"], host=mongodb_credentials["host"])
 mongo.collection()
 data = ocr()
 
 
-
 subject = "XRETAIL JOBS"
-password = "babar972"
-sender = 'laureote-loic@hotmail.fr'
-# Adresse e-mail du destinataire
-recipient = ''
-username = ''
-password = ''
-host = ""
-email = None
+sender = email_credentials["user"]
+recipient = ""
+username = email_credentials["user"]
+password = email_credentials["password"]
+
+
+rbq_host         = rabbitmq_credentials["host"]
+rbq_user         = rabbitmq_credentials["user"]
+rbq_password     = rabbitmq_credentials["password"]
+
+email = ""
 
 
 
@@ -38,26 +43,15 @@ def filter_message(message):
     return message
 
 
-def fibonacci(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-
 def get_random_string(string=10):
     string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=string))
     return string
 
 
-
-
-
 def get_queue_message_count(queue_name, host, username, password):
     # RabbitMQ Management API URL
-    url = 'http://{}:15672/api/queues/%2F/{}'.format(host, queue_name)
-    response = requests.get(url, auth=(username, password))
+    url = 'http://{}:15672/api/queues/%2F/{}'.format(rbq_host, queue_name)
+    response = requests.get(url, auth=(rbq_user, rbq_password))
     # Check if request was successful
     if response.status_code == 200:
         queue_info = response.json()
@@ -71,7 +65,7 @@ def get_queues_list(host, username, password):
     # URL de l'API de gestion RabbitMQ
     url = 'http://{}:15672/api/queues'.format(host)
     # Informations d'identification (remplacez par vos propres informations d'identification si nécessaire)
-    auth = (username, password)
+    auth = (rbq_user, rbq_password)
     # Demander la liste des files RabbitMQ
     response = requests.get(url, auth=auth)
     return response.json()
@@ -90,8 +84,13 @@ def callback(ch, method, properties, body):
         session = resp["session"]
         url_image = resp["url_image"]
         result = data.process(resp["url_image"])
-        is_valid = has_valid_check_digit(result["ean"])
-        mongo.store_mongodb(ean=result["ean"], description="DEMO", price=result["price"], user=email, gtin=is_valid, 
+        
+        if len(result["ean"]) == 13:
+            is_valid = has_valid_check_digit(result["ean"])
+        else:
+            is_valid = False
+        
+        mongo.store_mongodb(ean=result["ean"], description="PRODUCTION", price=result["price"], user=email, gtin=is_valid, 
             store_id= shop_id, session=session, url_image=url_image, annotation=result["annotation"], queue=job)
         ch.basic_ack(delivery_tag=method.delivery_tag)
         res = ch.queue_delete(job, if_empty=True)
@@ -134,8 +133,8 @@ def consume_with_retry(queue_name):
 
 
 
-credentials = pika.PlainCredentials('', '')
-parameters = pika.ConnectionParameters('159.99.9.190', 5672, '/', credentials)
+credentials = pika.PlainCredentials(rbq_user, rbq_password)
+parameters = pika.ConnectionParameters(rbq_host, 5672, '/', credentials)
 connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
@@ -145,10 +144,10 @@ while True:
     print("waiting for queue")
     # Vérifier à nouveau la liste des queues
     try:
-        resp = get_queues_list("139.99.9.198", "guest","guest")
+        resp = get_queues_list(rbq_host, rbq_user,rbq_password)
     except:
-        credentials = pika.PlainCredentials('guest', 'guest')
-        parameters = pika.ConnectionParameters('139.99.9.198', 5672, '/', credentials)
+        credentials = pika.PlainCredentials(rbq_user, rbq_password)
+        parameters = pika.ConnectionParameters(rbq_host, 5672, '/', credentials)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
 
@@ -168,8 +167,8 @@ while True:
         if "ftp@" not in email:
             if not mongo.is_email_sent(job):
                 mongo.close_session(job)
-                xlsconnector.process(queue=job)
-                mail(email, "", "", "Nous avons le plaisir de vous informer que le job est terminé")
+                csv_name = xlsconnector.process(queue=job)
+                mail(email, username, password, "Nous avons le plaisir de vous informer que le job est terminé", "tmp.xlsx")
                 xlsconnector.close()
                 xlsconnector.clean()
                 print("JOBS DONE FOR {}".format(job))

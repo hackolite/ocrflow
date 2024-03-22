@@ -71,14 +71,15 @@ def send(folder):
 				ean = str(row[1])
 				price = str(row[2])
 				path = "{}/{}".format(folder,str(row[7]))
-				resp = send_image_proof(headers=headers, image_path=path)
-				proof = resp['id']
-				resp = send_product(headers, ean, price, proof, osm_id=row[6])
-				print(resp.json())
-				print(resp.status_code)
+				if row[4] == "=TRUE()":
+					print("SENDING")
+					resp = send_image_proof(headers=headers, image_path=path)
+					proof = resp['id']
+					resp = send_product(headers, ean, price, proof, osm_id=row[6])
+					print(resp.json())
+					print(resp.status_code)
 			except Exception as e:
 				print(e)
-
 
 
 def delete_product():
@@ -94,4 +95,4 @@ def delete_product():
 			print(response.status_code)
 
  
-send("../zvdaiujzpz")
+send("../dcsglsbrfw_vf")
