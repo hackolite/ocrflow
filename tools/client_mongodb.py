@@ -17,7 +17,7 @@ current_datetime = datetime.now()
 # Format the current date and time as ISO 8601 string
 iso_date_string = current_datetime.isoformat()
 
-uri = "mongodb+srv://xretail:kodjemana@cluster0.nn3l2bm.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://xretail:@cluster0.nn3l2bm.mongodb.net/?retryWrites=true&w=majority"
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 # Send a ping to confirm a successful connection
