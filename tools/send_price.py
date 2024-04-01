@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 
-service_url = "https://prices.openfoodfacts.org/api/v1/"
+service_url = "prices.openfoodfacts.org"
 
 
 
@@ -14,8 +14,14 @@ service_url = "https://prices.openfoodfacts.org/api/v1/"
 def get_now():
 	now = datetime.now()
 	# Formater la date selon le format "YYYY-MM-DD"
-	date_formatted = now.strftime("%Y-%m-%d")
-	return date_formatted
+	#date_formatted = now.strftime("%Y-%m-%d")
+	# Date arbitraire
+	date_arbitraire = "2023-03-21"
+
+	# Convertir la date arbitraire en objet datetime
+	date_object = datetime.strptime(date_arbitraire, "%Y-%m-%d")
+	date_object = date_object.strftime("%Y-%m-%d")
+	return date_object
 
 
 def ingest(excel=None):
@@ -24,7 +30,7 @@ def ingest(excel=None):
 
 
 def send_image_proof(data_type='PRICE_TAG', headers=None, image_path=None):
-	url = 'https://prices.openfoodfacts.org/api/v1/proofs/upload'
+	url = 'https://{}/api/v1/proofs/upload'.format(service_url)
 	files = {'file': (image_path, open(image_path, 'rb'), 'image/jpeg'),}
 	data = {'type': data_type}
 	response = requests.post(url, headers=headers, data=data, files=files)
@@ -34,8 +40,8 @@ def send_image_proof(data_type='PRICE_TAG', headers=None, image_path=None):
 
 def send_product(headers, ean, price, proof, osm_id=None):
 	date_formatted = get_now()
-	url = "https://prices.openfoodfacts.org/api/v1/prices"
-	data = {"date":date_formatted, "product_code": str(ean),"price": price,"currency": "EUR","location_osm_id": osm_id,"location_osm_type": "WAY","proof_id": proof}
+	url = "https://{}/api/v1/prices".format(service_url)
+	data = {"date":date_formatted, "product_code": str(ean),"price": price,"currency": "EUR","location_osm_id": 827624445 ,"location_osm_type": "NODE","proof_id": proof}
 	response = requests.post(url, headers=headers, json=data)
 	return response
 
@@ -54,13 +60,13 @@ def connection(user, password):
 	    'client_secret': ''
 	}
 
-	url = "https://prices.openfoodfacts.org/api/v1/auth"
+	url = "https://{}/api/v1/auth".format(service_url)
 	token = requests.post(url, data=data, headers=headers)
 	print("token", token)
 	return token
 
 def send(folder):
-	resp = connection("laureote", "")
+	resp = connection("", "")
 	token = resp.json()['access_token']
 	headers = {'Authorization': 'Bearer {}'.format(token)}
 
@@ -90,9 +96,10 @@ def delete_product():
 	values = range(4518,4596)
 	for price_id in values:
 			price_id = str(price_id)
-			url = "https://prices.openfoodfacts.org/api/v1/prices/{}".format(price_id)
+			url = "https://{}/api/v1/prices/{}".format(service_url, price_id)
 			response = requests.delete(url, headers=headers)
 			print(response.status_code)
 
  
-send("../dcsglsbrfw_vf")
+send("../qunogyhfyx_vf")
+#send("../dcsglsbrfw")

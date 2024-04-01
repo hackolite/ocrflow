@@ -24,7 +24,6 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 
 
 
-
 def test_connection():
     
     try:
