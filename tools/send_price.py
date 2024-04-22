@@ -16,7 +16,7 @@ def get_now():
 	# Formater la date selon le format "YYYY-MM-DD"
 	#date_formatted = now.strftime("%Y-%m-%d")
 	# Date arbitraire
-	date_arbitraire = "2023-03-21"
+	date_arbitraire = "2024-03-21"
 
 	# Convertir la date arbitraire en objet datetime
 	date_object = datetime.strptime(date_arbitraire, "%Y-%m-%d")
@@ -41,7 +41,7 @@ def send_image_proof(data_type='PRICE_TAG', headers=None, image_path=None):
 def send_product(headers, ean, price, proof, osm_id=None):
 	date_formatted = get_now()
 	url = "https://{}/api/v1/prices".format(service_url)
-	data = {"date":date_formatted, "product_code": str(ean),"price": price,"currency": "EUR","location_osm_id": 827624445 ,"location_osm_type": "NODE","proof_id": proof}
+	data = {"date":date_formatted, "product_code": str(ean),"price": price,"currency": "EUR","location_osm_id": 1273681786 ,"location_osm_type": "NODE","proof_id": proof}
 	response = requests.post(url, headers=headers, json=data)
 	return response
 
@@ -66,7 +66,7 @@ def connection(user, password):
 	return token
 
 def send(folder):
-	resp = connection("", "")
+	resp = connection("laureote", "kodjemana972*")
 	token = resp.json()['access_token']
 	headers = {'Authorization': 'Bearer {}'.format(token)}
 
@@ -101,5 +101,5 @@ def delete_product():
 			print(response.status_code)
 
  
-send("../qunogyhfyx_vf")
+send("../sfezwpblto_v")
 #send("../dcsglsbrfw")
