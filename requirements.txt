@@ -6,3 +6,8 @@ torch>=1.7.0
 torchvision>=0.8.1
 pycocotools>=2.0
 matplotlib
+transformers[torch]
+transformers[sentencepiece]
+pika
+gtin
+ultralytics
