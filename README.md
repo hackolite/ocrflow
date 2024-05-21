@@ -34,6 +34,14 @@ Le training se fait par déclaration de bucket, avec déclaration des métriques
 Le modéle issu de l'entrainement est ensuite stocké dans MINIO. 
 
 
+## Deploiement
+
+To deploy this project run
+
+```bash
+  npm run deploy
+```
+
 ## API Reference
 
 #### Get all items
