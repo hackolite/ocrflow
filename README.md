@@ -15,12 +15,23 @@ OCRFLOW est une plateforme polyvalente conçue pour le benchmarking des pipeline
 </picture>
 
 
+# Philosophie
 
-## Acknowledgements
+OCRFLOW est un assemblage de solutions agencées pour gérer le benchmark, l'inférence, l'entrainement de modéles de computervision. A terme la porte d'entrée de la plateforme sera l'API.
 
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+### Inférence
+Pour le moment l'inférence temps-réel n'est pas prévue, le scénario d'inférence est asynchrone et fonctionne par passage d'url de l'image à l'API, en choisissant le modéle adapté, stocké au préalable dans la solution de stockage objet MINIO.
+L'image est processée par un consumer inscrit sur une queue rabbitmq dédiée. 
+
+
+### Benchmark
+Le benchmark peut être réalisé par passage d'url ou par passage de bucket MINIO. 
+Les métriques sont déclarées dans l'API (Accuracy, Recall, FPS, Mémoire), ainsi que le modéle, le consumer doit renvoyer ses spécifications pour une analyse équitable. 
+
+
+### Training
+Le training se fait par déclaration de bucket, avec déclaration des métriques triggers accuracy, nombre d'épochs etc ...
+Le modéle issu de l'entrainement est ensuite stocké dans MINIO. 
 
 
 ## API Reference
