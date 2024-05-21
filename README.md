@@ -54,7 +54,7 @@ To deploy this project run
 
 ---
 
-## apiQ Reference
+## apiQ Référence
 
 #### Get all items
 
