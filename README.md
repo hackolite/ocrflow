@@ -35,6 +35,9 @@ Le modéle issu de l'entrainement est ensuite stocké dans MINIO.
 
 
 
+
+                      
+
 ---
 
 
