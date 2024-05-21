@@ -41,17 +41,18 @@ Le modéle issu de l'entrainement est ensuite stocké dans MINIO.
 ---
 
 
-# Déploiement
+## Déploiement
 
 To deploy this project run
 
 ```bash
-  npm run deploy
+  git clone --branch dev https://github.com/hackolite/ocrflow.git
+  cd ./ocrflow/infrastructure/apiQ
+  docker-compose up --build apiQ
+ 
 ```
 
-
-
-
+---
 
 ## API Reference
 
