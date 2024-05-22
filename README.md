@@ -26,7 +26,7 @@ L'image est processée par un consumer inscrit sur une queue rabbitmq dédiée.
 
 ### Benchmark
 Le benchmark peut être réalisé par passage d'url ou par passage de bucket MINIO. 
-Les métriques sont déclarées dans l'API (Accuracy, Recall, FPS, Mémoire), ainsi que le modéle, le consumer doit renvoyer ses spécifications pour une analyse équitable. 
+Les métriques sont déclarées dans l'API (Accuracy, Recall, FPS, Mémoire, etc ...), ainsi que le modéle, le consumer doit renvoyer ses spécifications pour une analyse équitable. 
 
 
 ### Training
@@ -41,19 +41,20 @@ Le modéle issu de l'entrainement est ensuite stocké dans MINIO.
 ---
 
 
-# Déploiement
+## Déploiement
 
 To deploy this project run
 
 ```bash
-  npm run deploy
+  git clone --branch dev https://github.com/hackolite/ocrflow.git
+  cd ./ocrflow/infrastructure/apiQ
+  docker-compose up --build apiQ
+ 
 ```
 
+---
 
-
-
-
-## API Reference
+## Référence apiQ 
 
 #### Get all items
 
