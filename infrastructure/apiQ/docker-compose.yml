@@ -1,36 +1,31 @@
 version: '3'
 
 services:
-  rabbitmq: 
+  rabbitmq:
     image: rabbitmq:management
     ports:
-    - "4369:4369"
-    - "5671:5671"
-    - "5672:5672"
-    - "25672:25672"
-    - "15671:15671"
-    - "15672:15672"
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
     healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:15672"]
-        interval: 30s
-        timeout: 10s
-        retries: 15
-
+      test: ["CMD", "curl", "-f", "http://localhost:15672"]
+      interval: 30s
+      timeout: 10s
+      retries: 15
     env_file:
       - ../env
-
 
   flask-api:
     build:
       context: .
       dockerfile: DockerfileFlask
-
     ports:
       - "5000:5000"
-
     env_file:
       - ../env
-
     depends_on:
       - rabbitmq
 
@@ -42,3 +37,18 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - flask-api
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data
+
+volumes:
+  minio-data:
+
