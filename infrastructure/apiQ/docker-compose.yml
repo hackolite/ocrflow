@@ -40,17 +40,25 @@ services:
     depends_on:
       - flask-api
 
+
   minio:
-    image: minio/minio
+    image: docker.io/bitnami/minio:2022
     ports:
-      - "9000:9000"
+      - '9000:9000'
+      - '9001:9001'
+    networks:
+      - minionetwork
     volumes:
-      - minio-data:/data
+      - './minio_data:/data'
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
-    command: server /data
+      - MINIO_ROOT_USER=your_username
+      - MINIO_ROOT_PASSWORD=your_password
 
-volumes:
-  minio-data:
 
+networks:
+  minionetwork:
+    driver: bridge
+
+volumes:  
+  minio_data:
+    driver: local
