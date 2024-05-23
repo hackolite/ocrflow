@@ -1,15 +1,21 @@
 # Dockerfile
 FROM python:3.8
+RUN apt-get update
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements.txt /usr/src/app/
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY . /usr/src/app
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]]
+# Entrée de commande pour exécuter gunicorn
+ENTRYPOINT ["gunicorn"]
+
+# Spécifier le module et l'application WSGI pour Gunicorn
+CMD ["-w", "4", "-b", "0.0.0.0:5000", "swagger_server.__main__:app"]
 

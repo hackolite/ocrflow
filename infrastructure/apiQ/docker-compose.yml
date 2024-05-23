@@ -2,7 +2,11 @@ version: '3'
 
 services:
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management-alpine
+    expose :
+      - 5672
+      - 15672
+
     ports:
       - "4369:4369"
       - "5671:5671"
@@ -15,8 +19,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 15
-    env_file:
-      - ../env
 
   flask-api:
     build:
@@ -24,10 +26,10 @@ services:
       dockerfile: DockerfileFlask
     ports:
       - "5000:5000"
-    env_file:
-      - ../env
+
     depends_on:
       - rabbitmq
+
 
   nginx:
     image: nginx
