@@ -5,3 +5,4 @@ jsonify
 openapi-spec-validator==0.2.1
 connexion
 connexion[swagger-ui]>=2, <3
+boto3

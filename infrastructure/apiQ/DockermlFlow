@@ -1,0 +1,11 @@
+# Utiliser l'image MLflow officielle comme base
+FROM ghcr.io/mlflow/mlflow:latest
+
+# Installer boto3
+RUN pip install boto3
+
+# Exposer le port 3000 pour l'interface utilisateur MLflow
+EXPOSE 3000
+
+# Commande pour démarrer le serveur MLflow
+CMD ["mlflow", "server", "--backend-store-uri", "sqlite:///mlflow.db", "--default-artifact-root", "s3://mlflow-artifacts", "--host", "0.0.0.0", "--port", "3000"]
