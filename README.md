@@ -58,23 +58,42 @@ To deploy this project run
 
 #### Get all items
 
-```http
-  GET /api/items
-```
+| Méthode | Endpoint | Tag | Description | Niveau d'Achèvement |
+| --- | --- | --- | --- | --- |
+| GET | /inference | inference | Get all Inference Jobs | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| POST | /inference | inference | Create Inference | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /inference/findByStatus | inference | Find Inferences by status | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /inference/findByTags | inference | Find Inferences by tags | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /inference/{jobId} | inference | Find Inference job by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| PUT | /inference/{jobId} | inference | Updates Inference by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| DELETE | /inference/{jobId} | inference | Delete Inference by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /benchmark | benchmark | Get all Benchmark Jobs | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| POST | /benchmark | benchmark | Create a benchmark | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /benchmark/{jobId} | benchmark | Get Benchmark by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| DELETE | /benchmark/{jobId} | benchmark | Delete Benchmark by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /training | training | Get all Training Jobs | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| POST | /training | training | Create a training | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /training/{jobId} | training | Get Training by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| DELETE | /training/{jobId} | training | Delete Training by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /manage/exchange | manage | Manage Exchanges | ![Rouge](https://via.placeholder.com/15/FF0000/000000?text=+) Not Complete |
+| GET | /manage/queues | manage | Manage Queues | ![Rouge](https://via.placeholder.com/15/FF0000/000000?text=+) Not Complete |
+| GET | /manage/datasets | manage | Manage Datasets | ![Rouge](https://via.placeholder.com/15/FF0000/000000?text=+) Not Complete |
+| GET | /manage/models | manage | Manage Models | ![Rouge](https://via.placeholder.com/15/FF0000/000000?text=+) Not Complete |
+| GET | /status/jobs | status | Get all Jobs Status | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /status/consumers | status | Get All Consumers Status | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /status/jobs/{jobId} | status | Get Job by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /status/consumers/{nodeId} | status | Get Consumer by nodeId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /metric/ | metric | Get All Metrics | ![Rouge](https://via.placeholder.com/15/FF0000/000000?text=+) Not Complete |
+| GET | /metric/{jobId} | metric | Get Metrics by jobId | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| POST | /user | user | Create user | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| POST | /user/createWithList | user | Creates list of users with given input array | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /user/login | user | Logs user into the system | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /user/logout | user | Logs out current logged in user session | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| GET | /user/{username} | user | Get user by user name | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| PUT | /user/{username} | user | Update user | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
+| DELETE | /user/{username} | user | Delete user | ![Vert](https://via.placeholder.com/15/00FF00/000000?text=+) Complete |
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
 
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
 
 #### add(num1, num2)
 
