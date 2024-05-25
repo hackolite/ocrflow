@@ -11,3 +11,4 @@ transformers[sentencepiece]
 pika
 gtin
 ultralytics
+mlflow
