@@ -145,9 +145,13 @@ Insert gif or link to demo
 
 ## Roadmap
 
-- Scenario
+- Endpoints design and implementation
 
-- Add more integrations
+- Develop relevants queues from start 
+
+- Scenario Development
+
+- Micropython and rust consumer implementation
 
 
 ## Tech Stack
