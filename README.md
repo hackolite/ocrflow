@@ -10,7 +10,7 @@ OCRFLOW est une plateforme polyvalente conçue pour le benchmarking des pipeline
 
 <picture>
  <source media="(prefers-color-scheme: dark)" srcset="">
- <source media="(prefers-color-scheme: light)" srcset="https://i.postimg.cc/3NmbvXQN/OCRFLOW.png">
+ <source media="(prefers-color-scheme: light)" srcset="https://postimg.cc/YLjLfqqn">
  <img alt="YOUR-ALT-TEXT" src="https://postimg.cc/YLjLfqqn">
 </picture>
 
