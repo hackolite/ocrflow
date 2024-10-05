@@ -36,3 +36,14 @@ def get_address(latitude, longitude):
         print("Erreur lors de la requête : ", response.status_code)
 
     return address
+
+
+
+
+from geopy.geocoders import Nominatim
+geolocator = Nominatim(user_agent="specify_your_app_name_here")
+location = geolocator.reverse("52.509669, 13.376294")
+print(location.address)
+print((location.latitude, location.longitude))
+print(location.raw)
+{'place_id': '654513', 'osm_type': 'node', ...}

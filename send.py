@@ -10,6 +10,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 
+
 def mail(recipient_email, sender_email, password, body, fichier_piece_jointe):
 
     # Paramètres du serveur SMTP Gmail

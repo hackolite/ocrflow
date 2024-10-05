@@ -1,3 +1,7 @@
+import sys
+sys.path.append("..")
+
+
 import pika
 import configuration
 from connector.connector_mongodb import MongoConnector
@@ -24,7 +28,7 @@ data = ocr()
 
 subject = "XRETAIL JOBS"
 sender = email_credentials["user"]
-recipient = ""
+recipient = sender
 username = email_credentials["user"]
 password = email_credentials["password"]
 
@@ -33,7 +37,7 @@ rbq_host         = rabbitmq_credentials["host"]
 rbq_user         = rabbitmq_credentials["user"]
 rbq_password     = rabbitmq_credentials["password"]
 
-email = ""
+
 
 
 
@@ -150,8 +154,6 @@ while True:
         parameters = pika.ConnectionParameters(rbq_host, 5672, '/', credentials)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
-
-
         resp = []
 
     list_queue = []
@@ -168,7 +170,7 @@ while True:
             if not mongo.is_email_sent(job):
                 mongo.close_session(job)
                 csv_name = xlsconnector.process(queue=job)
-                mail(email, username, password, "Nous avons le plaisir de vous informer que le job est terminé", "tmp.xlsx")
+                mail(username, recipient, password, "Nous avons le plaisir de vous informer que le job est terminé", "tmp.xlsx")
                 xlsconnector.close()
                 xlsconnector.clean()
                 print("JOBS DONE FOR {}".format(job))

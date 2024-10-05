@@ -2,24 +2,31 @@
 import requests
 import xlsxwriter
 from datetime import datetime
+import time
 
 
-
-service_url = "prices.openfoodfacts.net"
-
-def connect():
-	pass
+service_url = "prices.openfoodfacts.org"
 
 
-def get_data():
-	resp = connection("laureote", "kodjemana972*")
-	token = resp.json()['access_token']
-	headers = {'Authorization': 'Bearer {}'.format(token)}
-    
-	for price_id in values:
-			price_id = str(price_id)
-			url = "https://{}/api/v1/prices/{}".format(service_url, price_id)
+user = "laureote"
+password = "kodjemana972*"
 
+import requests
+
+	
+
+# Paramètres de la requête
+params = {
+    "owner": "laureote",
+    "json": True , # Format de réponse JSON
+}
+
+
+data = {
+    'date': ''
+}
+
+count = 0
 
 def connection(user, password):
 
@@ -41,5 +48,32 @@ def connection(user, password):
 	return token
 
 
+def get_data():
+	count = 1
+	resp = connection(user, password)
+	token = resp.json()['access_token']
+	headers = {'Authorization': 'Bearer {}'.format(token)}
+	url = "https://{}/api/v1/prices".format(service_url)
+	while True:
+		params["page"] = count
+		response = requests.get(url, params=params)
+		items = response.json()["items"]
+		
+		if len(items) > 0:
+			for i in items:
+				if "2023" in i["date"]:
+					print(i["date"], i["created"])
+					date = i["date"].replace("2023", "2024")
+					data["date"] = date
+					print(data)
+					url_mod = url + "/"+ str(i["id"])
+					resp = requests.patch(url_mod, headers=headers, json=data)
+					print(resp.reason)
+			count +=1 
+		else:
+			return 
+get_data()
 
 
+def update_data():
+	pass
