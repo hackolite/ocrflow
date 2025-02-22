@@ -70,7 +70,7 @@ def connection(user, password):
 	return token
 
 def send(folder):
-	resp = connection("laureote", "kodjemana972*")
+	resp = connection("laureote", "")
 
 	token = resp.json()['access_token']
 	headers = {'Authorization': 'Bearer {}'.format(token)}
